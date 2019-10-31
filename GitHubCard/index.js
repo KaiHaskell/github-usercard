@@ -114,12 +114,20 @@ function gitCreateCard(cardCreator) {
   gitName.textContent = cardCreator.data.name;
   gitUsername.textContent = cardCreator.data.login;
   gitLocation.textContent = `Location: ${cardCreator.data.location}`;
-  gitProfile.textContent = `Profile: `;
+
   gitProfileA.href = cardCreator.data.html_url;
+  gitProfileA.textContent = cardCreator.data.html_url;
   gitFollowers.textContent = `Followers: ${cardCreator.data.followers}`;
   gitFollowing.textContent = `Following: ${cardCreator.data.following}`;
   gitBio.textContent = `Bio: ${cardCreator.data.bio}`;
 
+  //Event listeners
+  gitPFP.addEventListener("click", () => {
+    let hellbus = new Audio("audio/hellbus.mp3");
+    hellbus.loop = false;
+    hellbus.volume = 0.5;
+    hellbus.play();
+  });
   return gitCard;
 }
 
