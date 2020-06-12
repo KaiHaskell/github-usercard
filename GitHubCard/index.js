@@ -5,13 +5,13 @@
 
 axios
   .get("https://api.github.com/users/KaiHaskell")
-  .then(response => {
+  .then((response) => {
     console.log(response);
     let gitCard = gitCreateCard(response);
     const cards = document.querySelector(".cards");
     cards.appendChild(gitCard);
   })
-  .catch(error => {
+  .catch((error) => {
     console.log(error);
   });
 /* Step 2: Inspect and study the data coming back, this is YOUR 
@@ -40,19 +40,19 @@ const followersArray = [
   "ackers93",
   "hail91",
   "emilybruner",
-  "vtellez1"
+  "vtellez1",
 ];
 
-followersArray.forEach(coolPeople => {
+followersArray.forEach((coolPeople) => {
   axios
     .get(`https://api.github.com/users/${coolPeople}`)
-    .then(response => {
+    .then((response) => {
       let gitCard = gitCreateCard(response);
       const cards = document.querySelector(".cards");
       cards.appendChild(gitCard);
       gitCreateCard(response);
     })
-    .catch(error => {
+    .catch((error) => {
       console.log(error);
     });
 });
@@ -77,7 +77,7 @@ followersArray.forEach(coolPeople => {
 
 */
 
-function gitCreateCard(cardCreator) {
+function gitCreateCard(banana) {
   //creating the layout of the card div
   const gitCard = document.createElement("div");
   const gitPFP = document.createElement("img");
@@ -110,16 +110,16 @@ function gitCreateCard(cardCreator) {
   gitCardInfo.appendChild(gitBio);
 
   //Text Content for my elements
-  gitPFP.src = cardCreator.data.avatar_url;
-  gitName.textContent = cardCreator.data.name;
-  gitUsername.textContent = cardCreator.data.login;
-  gitLocation.textContent = `Location: ${cardCreator.data.location}`;
+  gitPFP.src = banana.data.avatar_url;
+  gitName.textContent = banana.data.name;
+  gitUsername.textContent = banana.data.login;
+  gitLocation.textContent = `Location: ${banana.data.location}`;
 
-  gitProfileA.href = cardCreator.data.html_url;
-  gitProfileA.textContent = cardCreator.data.html_url;
-  gitFollowers.textContent = `Followers: ${cardCreator.data.followers}`;
-  gitFollowing.textContent = `Following: ${cardCreator.data.following}`;
-  gitBio.textContent = `Bio: ${cardCreator.data.bio}`;
+  gitProfileA.href = banana.data.html_url;
+  gitProfileA.textContent = banana.data.html_url;
+  gitFollowers.textContent = `Followers: ${banana.data.followers}`;
+  gitFollowing.textContent = `Following: ${banana.data.following}`;
+  gitBio.textContent = `Bio: ${banana.data.bio}`;
 
   //Event listeners
   gitPFP.addEventListener("click", () => {
@@ -128,6 +128,7 @@ function gitCreateCard(cardCreator) {
     hellbus.volume = 0.5;
     hellbus.play();
   });
+
   return gitCard;
 }
 
