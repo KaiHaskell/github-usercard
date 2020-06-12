@@ -77,7 +77,7 @@ followersArray.forEach((coolPeople) => {
 
 */
 
-function gitCreateCard(banana) {
+function gitCreateCard(response) {
   //creating the layout of the card div
   const gitCard = document.createElement("div");
   const gitPFP = document.createElement("img");
@@ -110,16 +110,16 @@ function gitCreateCard(banana) {
   gitCardInfo.appendChild(gitBio);
 
   //Text Content for my elements
-  gitPFP.src = banana.data.avatar_url;
-  gitName.textContent = banana.data.name;
-  gitUsername.textContent = banana.data.login;
-  gitLocation.textContent = `Location: ${banana.data.location}`;
+  gitPFP.src = response.data.avatar_url;
+  gitName.textContent = response.data.name;
+  gitUsername.textContent = response.data.login;
+  gitLocation.textContent = `Location: ${response.data.location}`;
 
-  gitProfileA.href = banana.data.html_url;
-  gitProfileA.textContent = banana.data.html_url;
-  gitFollowers.textContent = `Followers: ${banana.data.followers}`;
-  gitFollowing.textContent = `Following: ${banana.data.following}`;
-  gitBio.textContent = `Bio: ${banana.data.bio}`;
+  gitProfileA.href = response.data.html_url;
+  gitProfileA.textContent = response.data.html_url;
+  gitFollowers.textContent = `Followers: ${response.data.followers}`;
+  gitFollowing.textContent = `Following: ${response.data.following}`;
+  gitBio.textContent = `Bio: ${response.data.bio}`;
 
   //Event listeners
   gitPFP.addEventListener("click", () => {
