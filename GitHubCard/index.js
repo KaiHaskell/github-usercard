@@ -3,6 +3,17 @@
            https://api.github.com/users/<your name>
 */
 
+axios
+  .get("https://api.github.com/users/KaiHaskell")
+  .then((response) => {
+    console.log(response);
+    let gitCard = gitCreateCard(response);
+    const cards = document.querySelector(".cards");
+    cards.appendChild(gitCard);
+  })
+  .catch((error) => {
+    console.log(error);
+  });
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
    data in order to use it to build your component function 
@@ -24,7 +35,27 @@
           user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = [
+  "AndrewMaddocks",
+  "ackers93",
+  "hail91",
+  "emilybruner",
+  "vtellez1",
+];
+
+followersArray.forEach((coolPeople) => {
+  axios
+    .get(`https://api.github.com/users/${coolPeople}`)
+    .then((response) => {
+      let gitCard = gitCreateCard(response);
+      const cards = document.querySelector(".cards");
+      cards.appendChild(gitCard);
+      gitCreateCard(response);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+});
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
@@ -46,10 +77,103 @@ const followersArray = [];
 
 */
 
+function gitCreateCard(response) {
+  //creating the layout of the card div
+  const gitCard = document.createElement("div");
+  const gitPFP = document.createElement("img");
+  const gitCardInfo = document.createElement("div");
+  const gitName = document.createElement("h3");
+  const gitUsername = document.createElement("p");
+  const gitLocation = document.createElement("p");
+  const gitProfile = document.createElement("p");
+  const gitProfileA = document.createElement("a");
+  const gitFollowers = document.createElement("p");
+  const gitFollowing = document.createElement("p");
+  const gitBio = document.createElement("p");
+
+  //Adding classes to the appropriate elements
+  gitCard.classList.add("card");
+  gitCardInfo.classList.add("card-info");
+  gitName.classList.add("name");
+  gitUsername.classList.add("username");
+
+  //appending all the elements
+  gitCard.appendChild(gitPFP);
+  gitCard.appendChild(gitCardInfo);
+  gitCardInfo.appendChild(gitName);
+  gitCardInfo.appendChild(gitUsername);
+  gitCardInfo.appendChild(gitLocation);
+  gitCardInfo.appendChild(gitProfile);
+  gitProfile.appendChild(gitProfileA);
+  gitCardInfo.appendChild(gitFollowers);
+  gitCardInfo.appendChild(gitFollowers);
+  gitCardInfo.appendChild(gitBio);
+
+  //Text Content for my elements
+  gitPFP.src = response.data.avatar_url;
+  gitName.textContent = response.data.name;
+  gitUsername.textContent = response.data.login;
+  gitLocation.textContent = `Location: ${response.data.location}`;
+
+  gitProfileA.href = response.data.html_url;
+  gitProfileA.textContent = response.data.html_url;
+  gitFollowers.textContent = `Followers: ${response.data.followers}`;
+  gitFollowing.textContent = `Following: ${response.data.following}`;
+  gitBio.textContent = `Bio: ${response.data.bio}`;
+
+  //Event listeners
+  gitPFP.addEventListener("click", () => {
+    let hellbus = new Audio("audio/hellbus.mp3");
+    hellbus.loop = false;
+    hellbus.volume = 0.5;
+    hellbus.play();
+  });
+
+  return gitCard;
+}
+
 /* List of LS Instructors Github username's: 
   tetondan
   dustinmyers
   justsml
   luishrd
   bigknell
+*/
+
+/*
+let myGitProfile = {
+  avatar_url: "https://avatars1.githubusercontent.com/u/31229627?v=4",
+  bio: "i only have one good pfp that i use for everything ",
+  blog: "kaihaskell.com",
+  company: "N/A",
+  created_at: "2017-08-22T02:05:37Z",
+  email: null,
+  events_url: "https://api.github.com/users/KaiHaskell/events{/privacy}",
+  followers: 23,
+  followers_url: "https://api.github.com/users/KaiHaskell/followers",
+  following: 16,
+  following_url:
+    "https://api.github.com/users/KaiHaskell/following{/other_user}",
+  gists_url: "https://api.github.com/users/KaiHaskell/gists{/gist_id}",
+  gravatar_id: "",
+  hireable: null,
+  html_url: "https://github.com/KaiHaskell",
+  id: 31229627,
+  location: "SC, USA",
+  login: "KaiHaskell",
+  name: "Kai",
+  node_id: "MDQ6VXNlcjMxMjI5NjI3",
+  organizations_url: "https://api.github.com/users/KaiHaskell/orgs",
+  public_gists: 0,
+  public_repos: 19,
+  received_events_url:
+    "https://api.github.com/users/KaiHaskell/received_events",
+  repos_url: "https://api.github.com/users/KaiHaskell/repos",
+  site_admin: false,
+  starred_url: "https://api.github.com/users/KaiHaskell/starred{/owner}{/repo}",
+  subscriptions_url: "https://api.github.com/users/KaiHaskell/subscriptions",
+  type: "User",
+  updated_at: "2019-10-31T20:46:38Z",
+  url: "https://api.github.com/users/KaiHaskell"
+};
 */
